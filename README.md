@@ -1,1 +1,8 @@
-# clarke-challenge
+# Implantação
+  1. Verifique se na sua máquina possui o docker instalado.
+  2. Clone o projeto.
+  3. Na raiz do projeto, rode o seguinte comando no terminal: 
+```jsx
+docker-compose up --build
+```     
+   5. Teste da maneira que achar melhor :)
