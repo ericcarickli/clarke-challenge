@@ -107,10 +107,10 @@ function CreateProvider() {
         <MainTemplate>
             <div>
                 <div className={styles.formCotainer}>
-                    <input 
+                    {/* <input 
                         type='file'
                         onChange={handleFileChange}
-                    />
+                    /> */}
                     <div className={styles.inputContainer}> 
                         <Input
                             required

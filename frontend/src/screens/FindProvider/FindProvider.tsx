@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import Logo from '../../assets/energy-1.png'; 
 import styles from './FindProvider.module.scss';
 import Input from "../../components/Input/Input";
 import Button from "../../components/Button/Button";
@@ -73,7 +74,7 @@ function FindProvider() {
                         <div key={index} className={styles.providerItemContainer}>
                             <div className={styles.providerSubContainer}>
                                 <div className={styles.logoContainer}>
-                                    <span>Logo</span>
+                                    <img className={styles.logo} src={Logo} alt="Logo" />
                                 </div>
                                 <div className={styles.textElementsContainer}>
                                     <span>{provider.name} - {provider.state}</span>
@@ -82,7 +83,7 @@ function FindProvider() {
                                     <span>Número total de clientes: {provider.totalClients}</span>
                                 </div>
                             </div>
-                            <span>{provider.totalClients}</span>
+                            <span>Nota: {provider.clientRate}</span>
                         </div>
                     ))}
                 </div>
