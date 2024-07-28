@@ -1,0 +1,45 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    .checkConsuptionContainer {
+        display: flex;
+        flex-direction: row;
+        align-items: end;
+        gap: 20px;
+    }
+
+    .results {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+
+        .providerItemContainer {
+            padding: 20px;
+            border-radius: 6px;
+            border: solid 1px #00df7c;
+
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+
+            .providerSubContainer {
+                display: flex;
+                flex-direction: row;
+                gap: 20px;
+
+                .logoContainer {
+                    height: 100%;
+                    display: flex;
+                    align-items: center;
+                }
+
+                .textElementsContainer {
+                    display: flex;
+                    flex-direction: column;
+                }
+            }
+        }
+    }
+}
