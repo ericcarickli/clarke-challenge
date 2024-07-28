@@ -48,9 +48,9 @@ function CreateProvider() {
     const handleOnSave = async () => {
         setLoading(true);
 
-        let logoUrl = '';
+        // let logoUrl = '';
         if (file) {
-            logoUrl = await uploadFile(file);
+            await uploadFile(file);
         }
 
         const mutation = `

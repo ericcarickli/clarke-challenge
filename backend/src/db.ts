@@ -1,16 +1,20 @@
-// db.ts
 import mongoose from 'mongoose';
+
+const mongoURI = process.env.MONGO_URI || 'mongodb://root:example@mongodb:27017/mydatabase';
 
 const connectDB = async () => {
   try {
-    await mongoose.connect('mongodb://localhost:27017/mydatabase');
+    await mongoose.connect(mongoURI, {
+      serverSelectionTimeoutMS: 30000,
+    });
     console.log('MongoDB connected');
   } catch (err) {
     if (err instanceof Error) {
-      console.error(err.message);
+      console.error('MongoDB connection error:', err.message);
     } else {
-      console.error('Unexpected error', err);
+      console.error('Unexpected error:', err);
     }
+    process.exit(1);
   }
 };
 

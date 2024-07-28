@@ -69,7 +69,7 @@ function FindProvider() {
                     <Button onClick={handleOnSend}>{loading ? 'Enviando...' : 'Enviar'}</Button>
                 </div>
                 <div className={styles.results}>
-                    {providers.map((provider, index) => (
+                    {providers && providers.length > 0 && providers.map((provider, index) => (
                         <div key={index} className={styles.providerItemContainer}>
                             <div className={styles.providerSubContainer}>
                                 <div className={styles.logoContainer}>
