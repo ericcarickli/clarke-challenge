@@ -10,22 +10,24 @@ import { v4 as uuidv4 } from 'uuid';
 import { fileURLToPath } from 'url';
 import { graphqlHTTP } from 'express-graphql';
 
+const app = express();
+
+// Serve static files from the dist directory
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const uploadsDir = path.join(__dirname, 'uploads');
+
+console.log('*************** __dirname', __dirname);
+
+app.use(express.static(path.join(__dirname, 'public')));
 
 if (!fs.existsSync(uploadsDir)) {
   fs.mkdirSync(uploadsDir);
 }
 
-const app = express();
-
 connectDB();
 
-// app.use(cors());
-app.use(cors({
-  origin: 'http://localhost:5173'
-}));
+app.use(cors());
 
 app.use(express.json());
 
