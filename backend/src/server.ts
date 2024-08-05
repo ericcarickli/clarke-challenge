@@ -15,9 +15,7 @@ const app = express();
 // Serve static files from the dist directory
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const uploadsDir = path.join(__dirname, 'uploads');
-
-console.log('*************** __dirname', __dirname);
+const uploadsDir = path.join(__dirname, '..', 'uploads');
 
 app.use(express.static(path.join(__dirname, 'public')));
 

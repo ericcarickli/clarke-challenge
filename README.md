@@ -1,3 +1,11 @@
+# Execução de testes de backend
+  1. Verifique se na sua máquina possui o docker instalado.
+  2. Clone o projeto.
+  3. Na raiz do projeto, rode o seguinte comando no terminal: 
+```jsx
+backend/run-tests.sh
+```
+
 # Implantação Local
   1. Verifique se na sua máquina possui o docker instalado.
   2. Clone o projeto.
@@ -8,7 +16,7 @@ docker-compose up --build
    4. Acesse no navegador a url http://localhost:5173/
    5. Teste da maneira que achar melhor :)
 
-# Implantação Productin (Heroku)
+# Implantação Production (Heroku)
   1. Verifique se na sua máquina possui o docker instalado.
   2. Clone o projeto.
   3. Na raiz do projeto, rode os seguinte comando no terminal: 
