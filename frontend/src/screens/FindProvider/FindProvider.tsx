@@ -22,7 +22,6 @@ function FindProvider() {
     const [energyConsumption, setEnergyConsumption] = useState<string>('');
     const [providers, setProviders] = useState<IProvider[]>([]); // State to hold fetched providers
 
-
     const handleOnSend = async () => {
         setLoading(true);
         const query = `
@@ -45,7 +44,8 @@ function FindProvider() {
         };
 
         try {
-            const response = await axios.post('http://localhost:3000/graphql', {
+            // const response = await axios.post('http://localhost:3000/graphql', {
+            const response = await axios.post(`${import.meta.env.VITE_API_URL}/graphql`, {
                 query: query,
                 variables: variables
             });

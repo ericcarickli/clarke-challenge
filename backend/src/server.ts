@@ -22,7 +22,11 @@ const app = express();
 
 connectDB();
 
-app.use(cors());
+// app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:5173'
+}));
+
 app.use(express.json());
 
 const storage = multer.diskStorage({
