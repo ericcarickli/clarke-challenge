@@ -78,13 +78,13 @@ function FindProvider() {
                                     <img className={styles.logo} src={provider.logoUrl || Logo} alt="Logo" />
                                 </div>
                                 <div className={styles.textElementsContainer}>
-                                    <span>{provider.name} - {provider.state}</span>
-                                    <span>Limite mínimo: {provider.minimumLimit}</span>
-                                    <span>Custo por kWh: {provider.kwhCost}</span>
-                                    <span>Número total de clientes: {provider.totalClients}</span>
+                                    <ProviderDetail title={provider.name} value={provider.state}/>
+                                    <ProviderDetail title='Limite mínimo:' value={provider.minimumLimit}/>
+                                    <ProviderDetail title='Custo por kWh:' value={provider.kwhCost}/>
+                                    <ProviderDetail title='Número total de clientes:' value={provider.totalClients}/>
                                 </div>
                             </div>
-                            <span>Nota: {provider.clientRate}</span>
+                            <ProviderDetail title='Nota:' value={provider.clientRate}/>
                         </div>
                     ))}
                 </div>
@@ -94,3 +94,17 @@ function FindProvider() {
 }
 
 export default FindProvider;
+
+interface ProviderDetailProps {
+    title: string;
+    value: string;
+}
+
+function ProviderDetail({ title, value }: ProviderDetailProps) {
+    return (
+        <div className={styles.providerDetailContainer}>
+            <span className={styles.title}>{title}</span>
+            <span className={styles.value}>{value}</span>
+        </div>
+    );
+}

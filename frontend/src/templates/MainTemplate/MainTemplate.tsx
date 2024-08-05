@@ -18,8 +18,9 @@ function MainTemplate({ children }: MainTemplateProps) {
     return(
         <div className={styles.mainContainer}>
             <header className={styles.header}>
-                {/* <span>Logo</span> */}
-                <img className={styles.logo} src={Logo} alt="Logo" />
+                <button className={styles.noStyledButton} onClick={() => navigate('/')}>
+                    <img className={styles.logo} src={Logo} alt="Logo" />
+                </button>
                 <Button onClick={handleCreateProvider}>
                     Criar Fornecedor
                 </Button>
