@@ -14,6 +14,7 @@ interface IProvider {
     minimumLimit: string;
     totalClients: string;
     clientRate: string;
+    logoUrl: string;
 }
 
 function FindProvider() {
@@ -34,6 +35,7 @@ function FindProvider() {
                     minimumLimit
                     totalClients
                     clientRate
+                    logoUrl
                 }
             }
         `;
@@ -74,7 +76,7 @@ function FindProvider() {
                         <div key={index} className={styles.providerItemContainer}>
                             <div className={styles.providerSubContainer}>
                                 <div className={styles.logoContainer}>
-                                    <img className={styles.logo} src={Logo} alt="Logo" />
+                                    <img className={styles.logo} src={provider.logoUrl || Logo} alt="Logo" />
                                 </div>
                                 <div className={styles.textElementsContainer}>
                                     <span>{provider.name} - {provider.state}</span>

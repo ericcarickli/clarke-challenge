@@ -11,6 +11,7 @@ const ProviderType = new GraphQLObjectType({
     name: { type: GraphQLString },
     state: { type: GraphQLString },
     totalClients: { type: GraphQLString },
+    logoUrl: { type: GraphQLString}
   }),
 });
 
@@ -56,7 +57,8 @@ const Mutation = new GraphQLObjectType({
         minimumLimit: { type: GraphQLString },
         name: { type: GraphQLString },
         state: { type: GraphQLString },
-        totalClients: { type: GraphQLString }
+        totalClients: { type: GraphQLString },
+        logoUrl: { type: GraphQLString }
       },
       resolve(parent, args) {
         try {
@@ -67,6 +69,7 @@ const Mutation = new GraphQLObjectType({
             name: args.name,
             state: args.state,
             totalClients: args.totalClients,
+            logoUrl: args.logoUrl,
           });
           return provider.save();
         } catch (error) {

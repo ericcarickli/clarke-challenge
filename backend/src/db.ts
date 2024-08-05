@@ -1,6 +1,8 @@
 import mongoose from 'mongoose';
 
-const mongoURI = process.env.MONGO_URI || 'mongodb://root:example@mongodb:27017/mydatabase';
+// const mongoURI = process.env.MONGO_URI || 'mongodb://root:example@mongodb:27017/mydatabase';
+const mongoURI = process.env.MONGO_URI || 'mongodb://localhost:27017/mydatabase';
+
 
 const connectDB = async () => {
   try {

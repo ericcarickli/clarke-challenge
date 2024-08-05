@@ -21,6 +21,7 @@ function CreateProvider() {
     const [totalClients, setTotalClients] = useState<string>('');
     const [clientRate, setClientRate] = useState<string>('');
 
+
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files) {
             setFile(e.target.files[0]);
@@ -48,9 +49,9 @@ function CreateProvider() {
     const handleOnSave = async () => {
         setLoading(true);
 
-        // let logoUrl = '';
+        let newLogoUrl = '';
         if (file) {
-            await uploadFile(file);
+            newLogoUrl = await uploadFile(file);
         }
 
         const mutation = `
@@ -60,7 +61,8 @@ function CreateProvider() {
                 $minimumLimit: String!,
                 $name: String!,
                 $state: String!,
-                $totalClients: String!
+                $totalClients: String!,
+                $logoUrl: String!
             ) {
                 addProvider(
                     clientRate: $clientRate,
@@ -68,7 +70,8 @@ function CreateProvider() {
                     minimumLimit: $minimumLimit,
                     name: $name,
                     state: $state,
-                    totalClients: $totalClients
+                    totalClients: $totalClients,
+                    logoUrl: $logoUrl
                 ) {
                     clientRate
                     kwhCost
@@ -76,6 +79,7 @@ function CreateProvider() {
                     name
                     state
                     totalClients
+                    logoUrl
                 }
             }
         `;
@@ -86,9 +90,10 @@ function CreateProvider() {
             minimumLimit,
             name,
             state,
-            totalClients
+            totalClients,
+            logoUrl: newLogoUrl
         };
-
+    
         try {
             const response = await axios.post('http://localhost:3000/graphql', {
                 query: mutation,
@@ -107,10 +112,10 @@ function CreateProvider() {
         <MainTemplate>
             <div>
                 <div className={styles.formCotainer}>
-                    {/* <input 
+                    <input 
                         type='file'
                         onChange={handleFileChange}
-                    /> */}
+                    />
                     <div className={styles.inputContainer}> 
                         <Input
                             required
@@ -171,7 +176,7 @@ function CreateProvider() {
                     <Button 
                         disabled={
                             name === '' || state === '' || kwhCost === '' ||
-                            minimumLimit === '' || totalClients === '' || clientRate === ''
+                            minimumLimit === '' || totalClients === '' || clientRate === '' || !file
                         }
                         onClick={handleOnSave}
                     >

@@ -7,6 +7,7 @@ export interface IProvider extends Document {
   name: string;
   state: string;
   totalClients: string;
+  logoUrl: string;
 }
 
 const ProviderSchema: Schema = new Schema({
@@ -16,6 +17,7 @@ const ProviderSchema: Schema = new Schema({
   name: { type: String, required: true },
   state: { type: String, required: true },
   totalClients: { type: String, required: true },
+  logoUrl: { type: String, required: true },
 });
 
 export default mongoose.model<IProvider>('Provider', ProviderSchema);
