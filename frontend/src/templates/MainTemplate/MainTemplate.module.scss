@@ -1,29 +1,28 @@
 .mainContainer {
-    // width: 100vw;
-    max-width: 100vw;
-    // height: 100vh;
-    min-height: 100vh;
+    margin: 0;
     display: flex;
+    max-width: 100vw;
+    min-height: 100vh;
+    box-sizing: border-box;
     flex-direction: column;
     background-color:  #00df7c;
-    margin: 0;
-    box-sizing: border-box;
 
     .header {
-        height: 60px;
-        max-width: 100%;
-        padding: 20px;
-        background: #fff;
         width: 100%;
+        height: 60px;
+        padding: 20px;
         display: flex;
+        max-width: 100%;
+        background: #fff;
         align-items: center;
         flex-direction: row;
-        justify-content: space-between;
         box-sizing: border-box;
+        justify-content: space-between;
 
         .noStyledButton {
             padding: 0;
             border: none;
+            cursor: pointer;
             background: transparent;
 
             .logo {
@@ -34,21 +33,19 @@
     }
 
     .bodyContainer {
-        height: 90vh;
         width: 100%;
+        height: 90vh;
         display: flex;
         align-items: center;
         justify-content: center;
 
         .body {
             width: 60%;
+            padding: 30px;
             max-height: 60vh;
             background: #fff;
-            border-radius: 15px;
-    
-            padding: 30px;
-
             overflow-y: auto;
+            border-radius: 15px;
         }
     }
 }

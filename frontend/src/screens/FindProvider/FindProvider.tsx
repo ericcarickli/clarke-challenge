@@ -64,11 +64,16 @@ function FindProvider() {
                         type='number'
                         width="400px"
                         placeholder="3000kWh"
-                        label="Consumo mensal de energia (kWh)"
                         value={energyConsumption}
                         onChange={setEnergyConsumption}
+                        label="Consumo mensal de energia (kWh)"
                     />
-                    <Button onClick={handleOnSend}>{loading ? 'Enviando...' : 'Enviar'}</Button>
+                    <Button 
+                        onClick={handleOnSend}
+                        disabled={energyConsumption === ''} 
+                    >
+                        {loading ? 'Enviando...' : 'Enviar'}
+                    </Button>
                 </div>
                 <div className={styles.results}>
                     {providers && providers.length > 0 && providers.map((provider, index) => (
