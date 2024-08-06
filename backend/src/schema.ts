@@ -36,7 +36,6 @@ const RootQuery = new GraphQLObjectType({
       args: { minimumLimit: { type: GraphQLString } },
       resolve(parent, args) {
         try {
-          // return Provider.find({ minimumLimit: { $lte: Number(args.minimumLimit) } }).exec();
           const minimumLimitValue = Number(args.minimumLimit);
 
           return Provider.aggregate([

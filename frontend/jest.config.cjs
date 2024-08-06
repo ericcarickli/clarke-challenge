@@ -11,12 +11,6 @@ module.exports = {
     }],
   },
   extensionsToTreatAsEsm: ['.ts', '.tsx'],
-  // globals: {
-  //   'ts-jest': {
-  //     tsconfig: 'tsconfig.test.json',
-  //     useESM: true,
-  //   },
-  // },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
   moduleNameMapper: {
     '\\.module\\.scss$': 'identity-obj-proxy',

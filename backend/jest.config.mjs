@@ -1,7 +1,6 @@
 export default {
   transform: {
     '^.+\\.(t|j)s$': ['ts-jest', {
-      // ts-jest specific configuration options go here
       useESM: true,
       tsconfig: 'tsconfig.json',
     }],
