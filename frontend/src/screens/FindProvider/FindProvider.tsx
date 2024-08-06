@@ -14,13 +14,13 @@ interface IProvider {
     minimumLimit: string;
     totalClients: string;
     clientRate: string;
+    logoUrl: string;
 }
 
 function FindProvider() {
     const [loading, setLoading] = useState<boolean>(false);
     const [energyConsumption, setEnergyConsumption] = useState<string>('');
-    const [providers, setProviders] = useState<IProvider[]>([]); // State to hold fetched providers
-
+    const [providers, setProviders] = useState<IProvider[]>([]);
 
     const handleOnSend = async () => {
         setLoading(true);
@@ -34,6 +34,7 @@ function FindProvider() {
                     minimumLimit
                     totalClients
                     clientRate
+                    logoUrl
                 }
             }
         `;
@@ -43,7 +44,7 @@ function FindProvider() {
         };
 
         try {
-            const response = await axios.post('http://localhost:3000/graphql', {
+            const response = await axios.post(`${process.env.VITE_API_URL}/graphql`, {
                 query: query,
                 variables: variables
             });
@@ -63,27 +64,33 @@ function FindProvider() {
                         type='number'
                         width="400px"
                         placeholder="3000kWh"
-                        label="Consumo mensal de energia (kWh)"
+                        id='energyConsumption'
                         value={energyConsumption}
                         onChange={setEnergyConsumption}
+                        label="Consumo mensal de energia (kWh)"
                     />
-                    <Button onClick={handleOnSend}>{loading ? 'Enviando...' : 'Enviar'}</Button>
+                    <Button 
+                        onClick={handleOnSend}
+                        disabled={energyConsumption === ''} 
+                    >
+                        {loading ? 'Enviando...' : 'Enviar'}
+                    </Button>
                 </div>
                 <div className={styles.results}>
                     {providers && providers.length > 0 && providers.map((provider, index) => (
                         <div key={index} className={styles.providerItemContainer}>
                             <div className={styles.providerSubContainer}>
                                 <div className={styles.logoContainer}>
-                                    <img className={styles.logo} src={Logo} alt="Logo" />
+                                    <img className={styles.logo} src={provider.logoUrl || Logo} alt="Logo" />
                                 </div>
                                 <div className={styles.textElementsContainer}>
-                                    <span>{provider.name} - {provider.state}</span>
-                                    <span>Limite mínimo: {provider.minimumLimit}</span>
-                                    <span>Custo por kWh: {provider.kwhCost}</span>
-                                    <span>Número total de clientes: {provider.totalClients}</span>
+                                    <ProviderDetail title={provider.name} value={provider.state}/>
+                                    <ProviderDetail title='Limite mínimo:' value={provider.minimumLimit}/>
+                                    <ProviderDetail title='Custo por kWh:' value={provider.kwhCost}/>
+                                    <ProviderDetail title='Número total de clientes:' value={provider.totalClients}/>
                                 </div>
                             </div>
-                            <span>Nota: {provider.clientRate}</span>
+                            <ProviderDetail title='Nota:' value={provider.clientRate}/>
                         </div>
                     ))}
                 </div>
@@ -93,3 +100,17 @@ function FindProvider() {
 }
 
 export default FindProvider;
+
+interface ProviderDetailProps {
+    title: string;
+    value: string;
+}
+
+function ProviderDetail({ title, value }: ProviderDetailProps) {
+    return (
+        <div className={styles.providerDetailContainer}>
+            <span className={styles.title}>{title}</span>
+            <span className={styles.value}>{value}</span>
+        </div>
+    );
+}

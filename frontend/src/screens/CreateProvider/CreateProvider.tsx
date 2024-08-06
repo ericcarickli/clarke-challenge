@@ -8,9 +8,7 @@ import { useNavigate } from 'react-router-dom';
 
 function CreateProvider() {
     //nome, logo, estado de origem, custo por kWh, limite mínimo de kWh, número total de clientes e avaliação média dos clientes
-
     const navigate = useNavigate();
-
     const [loading, setLoading] = useState<boolean>(false);
 
     const [file, setFile] = useState<File | null>(null);
@@ -20,6 +18,7 @@ function CreateProvider() {
     const [minimumLimit, setMinimumLimit] = useState<string>('');
     const [totalClients, setTotalClients] = useState<string>('');
     const [clientRate, setClientRate] = useState<string>('');
+
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files) {
@@ -32,12 +31,12 @@ function CreateProvider() {
         formData.append('file', file);
     
         try {
-            const response = await axios.post('http://localhost:3000/upload', formData, {
+            const response = await axios.post(`${process.env.VITE_API_URL}/upload`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
             });
-            return response.data.url; // assuming the response contains the URL of the uploaded file
+            return response.data.url;
         } catch (error) {
             console.error('Error uploading file:', error);
             throw error;
@@ -48,9 +47,9 @@ function CreateProvider() {
     const handleOnSave = async () => {
         setLoading(true);
 
-        // let logoUrl = '';
+        let newLogoUrl = '';
         if (file) {
-            await uploadFile(file);
+            newLogoUrl = await uploadFile(file);
         }
 
         const mutation = `
@@ -60,7 +59,8 @@ function CreateProvider() {
                 $minimumLimit: String!,
                 $name: String!,
                 $state: String!,
-                $totalClients: String!
+                $totalClients: String!,
+                $logoUrl: String!
             ) {
                 addProvider(
                     clientRate: $clientRate,
@@ -68,7 +68,8 @@ function CreateProvider() {
                     minimumLimit: $minimumLimit,
                     name: $name,
                     state: $state,
-                    totalClients: $totalClients
+                    totalClients: $totalClients,
+                    logoUrl: $logoUrl
                 ) {
                     clientRate
                     kwhCost
@@ -76,6 +77,7 @@ function CreateProvider() {
                     name
                     state
                     totalClients
+                    logoUrl
                 }
             }
         `;
@@ -86,11 +88,12 @@ function CreateProvider() {
             minimumLimit,
             name,
             state,
-            totalClients
+            totalClients,
+            logoUrl: newLogoUrl
         };
-
+    
         try {
-            const response = await axios.post('http://localhost:3000/graphql', {
+            const response = await axios.post(`${process.env.VITE_API_URL}/graphql`, {
                 query: mutation,
                 variables: variables
             });
@@ -107,12 +110,15 @@ function CreateProvider() {
         <MainTemplate>
             <div>
                 <div className={styles.formCotainer}>
-                    {/* <input 
+                    <input
+                        id='file'
                         type='file'
+                        data-testid="file-input"
                         onChange={handleFileChange}
-                    /> */}
+                    />
                     <div className={styles.inputContainer}> 
                         <Input
+                            id='name'
                             required
                             width="400px"
                             label="Nome"
@@ -121,6 +127,7 @@ function CreateProvider() {
                             onChange={setName}
                         />
                         <Input
+                            id='state'
                             required
                             width="400px"
                             value={state}
@@ -132,6 +139,7 @@ function CreateProvider() {
                     <div className={styles.inputContainer}>
                         <Input
                             required
+                            id='kwhCost'
                             width="400px"
                             value={kwhCost}
                             onChange={setKwhCost}
@@ -142,6 +150,7 @@ function CreateProvider() {
                             required
                             type='number'
                             width="400px"
+                            id='minimumLimit'
                             value={minimumLimit}
                             onChange={setMinimumLimit}
                             label="Limite mínimo de kwh"
@@ -153,6 +162,7 @@ function CreateProvider() {
                             required
                             type='number'
                             width="400px"
+                            id='totalClients'
                             value={totalClients}
                             onChange={setTotalClients}
                             label="Número total de clientes"
@@ -162,6 +172,7 @@ function CreateProvider() {
                             required
                             type='number'
                             width="400px"
+                            id='clientRate'
                             value={clientRate}
                             onChange={setClientRate}
                             label="Avaliação média dos clientes"
@@ -171,7 +182,7 @@ function CreateProvider() {
                     <Button 
                         disabled={
                             name === '' || state === '' || kwhCost === '' ||
-                            minimumLimit === '' || totalClients === '' || clientRate === ''
+                            minimumLimit === '' || totalClients === '' || clientRate === '' || !file
                         }
                         onClick={handleOnSave}
                     >

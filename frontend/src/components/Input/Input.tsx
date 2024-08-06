@@ -1,6 +1,7 @@
 import styles from './Input.module.scss';
 
 interface InputProps {
+    id?: string;
     label: string;
     value: string;
     onChange: (value: string) => void;
@@ -14,6 +15,7 @@ interface InputProps {
 
 
 function Input({
+    id,
     label,
     value,
     onChange,
@@ -26,9 +28,10 @@ function Input({
 }: InputProps) {
     return(
         <div className={styles.container} style={{ width }}>
-            <label className={styles.label}>{label}{required && ' *'}</label>
+            <label className={styles.label} htmlFor={id}>{label}{required && ' *'}</label>
             <div className={styles.inputContainer}>
                 <input 
+                    id={id}
                     type="text" 
                     value={value}
                     className={styles.input}

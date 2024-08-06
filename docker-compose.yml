@@ -34,8 +34,10 @@ services:
       - /usr/src/app/node_modules
     environment:
       - NODE_ENV=development
-      - VITE_API_URL=http://backend:3000/graphql  # Use the backend service name
+      - VITE_API_URL=http://localhost:3000  # Use the backend service name
     command: npm run dev
+    depends_on:
+      - backend
     networks:
       - app-network
 

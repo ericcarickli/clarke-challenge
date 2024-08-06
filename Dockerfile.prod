@@ -1,0 +1,38 @@
+# Use an official Node.js runtime as a parent image
+FROM node:18 AS frontend-build
+
+# Set the working directory for frontend build
+WORKDIR /usr/src/app/frontend
+
+# Copy frontend package files and install dependencies
+COPY frontend/package*.json ./
+RUN npm install
+
+# Build the frontend
+COPY frontend ./
+RUN npm run build
+
+# Use another Node.js runtime for the backend
+FROM node:18 AS backend
+
+# Set the working directory for the backend
+WORKDIR /usr/src/app/backend
+
+# Copy backend package files and install dependencies
+COPY backend/package*.json ./
+RUN npm install
+
+# Copy the backend code
+COPY backend ./
+
+# Copy the frontend build output from the frontend build stage
+COPY --from=frontend-build /usr/src/app/frontend/dist /usr/src/app/backend/dist/public
+
+# Build the backend TypeScript code
+RUN npm run build
+
+# Expose the port that the application will run on
+EXPOSE 3000
+
+# Define the command to run the application
+CMD ["npm", "start"]

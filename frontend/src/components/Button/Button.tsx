@@ -16,6 +16,7 @@ function Button({
         <button
             className={`${styles.button} ${disabled ? styles.disabled : ''}`}
             onClick={!disabled ? onClick : () => {}}
+            disabled={disabled}
         >
             {children}
         </button>
