@@ -20,7 +20,7 @@ interface IProvider {
 function FindProvider() {
     const [loading, setLoading] = useState<boolean>(false);
     const [energyConsumption, setEnergyConsumption] = useState<string>('');
-    const [providers, setProviders] = useState<IProvider[]>([]); // State to hold fetched providers
+    const [providers, setProviders] = useState<IProvider[]>([]);
 
     const handleOnSend = async () => {
         setLoading(true);
@@ -44,7 +44,6 @@ function FindProvider() {
         };
 
         try {
-            // const response = await axios.post(`${import.meta.env.VITE_API_URL}/graphql`, {
             const response = await axios.post(`${process.env.VITE_API_URL}/graphql`, {
                 query: query,
                 variables: variables
