@@ -36,7 +36,39 @@ const RootQuery = new GraphQLObjectType({
       args: { minimumLimit: { type: GraphQLString } },
       resolve(parent, args) {
         try {
-          return Provider.find({ minimumLimit: { $gte: Number(args.minimumLimit) } }).exec();
+          // return Provider.find({ minimumLimit: { $lte: Number(args.minimumLimit) } }).exec();
+          const minimumLimitValue = Number(args.minimumLimit);
+
+          return Provider.aggregate([
+            {
+              $addFields: {
+                minimumLimitInt: {
+                  $convert: {
+                    input: "$minimumLimit",
+                    to: "int",
+                    onError: 0
+                  }
+                }
+              }
+            },
+            {
+              $match: {
+                minimumLimitInt: { $lte: minimumLimitValue }
+              }
+            },
+            {
+              $project: {
+                _id: 1,
+                minimumLimit: 1,
+                state: 1,
+                logoUrl: 1,
+                clientRate: 1,
+                kwhCost: 1,
+                name: 1,
+                totalClients: 1
+              }
+            }
+          ]).exec();
         } catch (error) {
           console.error('Error fetching element:', error);
           throw new Error('Failed to fetch element');
