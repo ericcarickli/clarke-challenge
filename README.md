@@ -6,6 +6,14 @@
 backend/run-tests.sh
 ```
 
+# Execução de testes de frontend
+  1. Verifique se na sua máquina possui o docker instalado.
+  2. Clone o projeto.
+  3. Na raiz do projeto, rode o seguinte comando no terminal: 
+```jsx
+frontend/run-tests.sh
+```
+
 # Implantação Local
   1. Verifique se na sua máquina possui o docker instalado.
   2. Clone o projeto.

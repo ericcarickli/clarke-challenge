@@ -44,7 +44,8 @@ function FindProvider() {
         };
 
         try {
-            const response = await axios.post(`${import.meta.env.VITE_API_URL}/graphql`, {
+            // const response = await axios.post(`${import.meta.env.VITE_API_URL}/graphql`, {
+            const response = await axios.post(`${process.env.VITE_API_URL}/graphql`, {
                 query: query,
                 variables: variables
             });
@@ -64,6 +65,7 @@ function FindProvider() {
                         type='number'
                         width="400px"
                         placeholder="3000kWh"
+                        id='energyConsumption'
                         value={energyConsumption}
                         onChange={setEnergyConsumption}
                         label="Consumo mensal de energia (kWh)"

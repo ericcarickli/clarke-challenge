@@ -31,7 +31,8 @@ function CreateProvider() {
         formData.append('file', file);
     
         try {
-            const response = await axios.post(`${import.meta.env.VITE_API_URL}/upload`, formData, {
+            // const response = await axios.post(`${import.meta.env.VITE_API_URL}/upload`, formData, {
+            const response = await axios.post(`${process.env.VITE_API_URL}/upload`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
@@ -93,7 +94,7 @@ function CreateProvider() {
         };
     
         try {
-            const response = await axios.post(`${import.meta.env.VITE_API_URL}/graphql`, {
+            const response = await axios.post(`${process.env.VITE_API_URL}/graphql`, {
                 query: mutation,
                 variables: variables
             });
@@ -110,12 +111,15 @@ function CreateProvider() {
         <MainTemplate>
             <div>
                 <div className={styles.formCotainer}>
-                    <input 
+                    <input
+                        id='file'
                         type='file'
+                        data-testid="file-input"
                         onChange={handleFileChange}
                     />
                     <div className={styles.inputContainer}> 
                         <Input
+                            id='name'
                             required
                             width="400px"
                             label="Nome"
@@ -124,6 +128,7 @@ function CreateProvider() {
                             onChange={setName}
                         />
                         <Input
+                            id='state'
                             required
                             width="400px"
                             value={state}
@@ -135,6 +140,7 @@ function CreateProvider() {
                     <div className={styles.inputContainer}>
                         <Input
                             required
+                            id='kwhCost'
                             width="400px"
                             value={kwhCost}
                             onChange={setKwhCost}
@@ -145,6 +151,7 @@ function CreateProvider() {
                             required
                             type='number'
                             width="400px"
+                            id='minimumLimit'
                             value={minimumLimit}
                             onChange={setMinimumLimit}
                             label="Limite mínimo de kwh"
@@ -156,6 +163,7 @@ function CreateProvider() {
                             required
                             type='number'
                             width="400px"
+                            id='totalClients'
                             value={totalClients}
                             onChange={setTotalClients}
                             label="Número total de clientes"
@@ -165,6 +173,7 @@ function CreateProvider() {
                             required
                             type='number'
                             width="400px"
+                            id='clientRate'
                             value={clientRate}
                             onChange={setClientRate}
                             label="Avaliação média dos clientes"
