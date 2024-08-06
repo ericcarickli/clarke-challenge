@@ -1,10 +1,7 @@
 #!/bin/bash
 
-# Start Docker Compose in detached mode
-docker-compose -f frontend/docker-compose-test.yml up --build -d
-
-# Run the tests
-docker-compose -f frontend/docker-compose-test.yml run --rm frontend npm test
+# Start Docker Compose
+docker-compose -f frontend/docker-compose-test.yml up
 
 # Stop and remove containers
 docker-compose -f frontend/docker-compose-test.yml down --remove-orphans
