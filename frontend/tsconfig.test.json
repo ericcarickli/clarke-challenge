@@ -5,7 +5,8 @@
       "jsx": "react-jsx",
       "moduleResolution": "Node",
       "esModuleInterop": true,
-      "types": ["node", "@testing-library/jest-dom"]
+      "types": ["node", "@testing-library/jest-dom"],
+      "outDir": "./dist",
     },
     "include": ["src/**/*"],
     "exclude": ["node_modules"]
